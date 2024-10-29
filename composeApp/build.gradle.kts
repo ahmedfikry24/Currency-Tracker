@@ -40,11 +40,12 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.navigation.compose )
+            implementation(libs.navigation.compose)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.bundles.ktor)
             api(libs.koin.core)
             implementation(libs.bundles.koin)
+            implementation(libs.bundles.voyager)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
