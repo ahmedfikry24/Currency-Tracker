@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 
 
 private val lightScheme = lightColorScheme(
@@ -88,9 +89,11 @@ fun CurrencyTrackerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
-    MaterialTheme(
-        colorScheme = if (darkTheme) darkScheme else lightScheme,
-        typography = AppTypography(),
-        content = content
-    )
+    CompositionLocalProvider(localSpacing provides MaterialTheme.spacing) {
+        MaterialTheme(
+            colorScheme = if (darkTheme) darkScheme else lightScheme,
+            typography = AppTypography(),
+            content = content
+        )
+    }
 }
