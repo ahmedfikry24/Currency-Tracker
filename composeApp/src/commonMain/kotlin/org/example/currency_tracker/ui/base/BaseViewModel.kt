@@ -37,10 +37,7 @@ abstract class BaseViewModel<U, E>(uiState: U) : ScreenModel {
         dispatcher: CoroutineDispatcher = Dispatchers.IO,
     ) {
         val handler = CoroutineExceptionHandler { _, error ->
-            when (error) {
-                is NoInternetConnection -> onFailure(NoInternetConnection())
-                else -> onFailure(SomeThingWentWrong())
-            }
+            onFailure(error as BaseError)
         }
         screenModelScope.launch(handler + dispatcher) {
             val result = call()
