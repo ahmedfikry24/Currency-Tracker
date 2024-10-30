@@ -18,7 +18,7 @@ abstract class BaseViewModel<U, E>(uiState: U) : ScreenModel {
 
     protected val _state = MutableStateFlow(uiState)
     val state = _state
-        .onStart { initDate() }
+        .onStart { initData() }
         .stateIn(
             scope = screenModelScope,
             started = SharingStarted.WhileSubscribed(5000),
@@ -28,7 +28,7 @@ abstract class BaseViewModel<U, E>(uiState: U) : ScreenModel {
     private val _event = MutableSharedFlow<E>()
     val event = _event.asSharedFlow()
 
-    abstract fun initDate()
+    abstract fun initData()
 
     protected fun <T> tryExecute(
         call: suspend () -> T,
