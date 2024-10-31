@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import org.example.currency_tracker.ui.shared_ui.CoinUiState
+import org.example.currency_tracker.ui.shared.ui_state.CoinUiState
 import org.example.currency_tracker.ui.theme.spacing
 import org.jetbrains.compose.resources.painterResource
 

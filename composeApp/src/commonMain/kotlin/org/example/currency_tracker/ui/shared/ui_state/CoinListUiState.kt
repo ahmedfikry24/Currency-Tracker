@@ -1,8 +1,6 @@
-package org.example.currency_tracker.ui.coin_list.view_model
+package org.example.currency_tracker.ui.shared.ui_state
 
 import androidx.compose.runtime.Immutable
-import org.example.currency_tracker.ui.shared_ui.CoinUiState
-import org.example.currency_tracker.ui.shared_ui.ContentStatus
 
 @Immutable
 data class CoinListUiState(
