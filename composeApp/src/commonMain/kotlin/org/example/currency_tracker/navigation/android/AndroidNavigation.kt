@@ -1,4 +1,4 @@
-package org.example.currency_tracker.navigation
+package org.example.currency_tracker.navigation.android
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -13,7 +13,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import org.example.currency_tracker.ui.coin_list.CoinListScreen
+import org.example.currency_tracker.ui.coin_list.view_model.CoinListEvents
 import org.example.currency_tracker.ui.coin_list.view_model.CoinListViewModel
+import org.example.currency_tracker.ui.util.EventHandler
 import org.example.currency_tracker.ui.util.NavControllerManager
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -33,9 +35,16 @@ fun AndroidNavigation() {
                 composable<CoinList> {
                     val viewModel = koinViewModel<CoinListViewModel>()
                     val state by viewModel.state.collectAsStateWithLifecycle()
+                    EventHandler(viewModel.event) { event, _ ->
+                        when (event) {
+                            is CoinListEvents.NavigateToCoinDetails -> navController.navigate(
+                                CoinDetails(event.id)
+                            )
+                        }
+                    }
                     CoinListScreen(state = state, interactions = viewModel)
                 }
-                composable<CoinDetails> {  }
+                composable<CoinDetails> { }
             }
         }
     }

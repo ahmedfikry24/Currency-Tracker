@@ -4,9 +4,11 @@ import kotlinx.coroutines.flow.update
 import org.example.currency_tracker.data.model.CoinDto
 import org.example.currency_tracker.data.repository.Repository
 import org.example.currency_tracker.ui.base.BaseViewModel
-import org.example.currency_tracker.ui.shared_ui.CoinUiState
-import org.example.currency_tracker.ui.shared_ui.ContentStatus
-import org.example.currency_tracker.ui.shared_ui.toUiState
+import org.example.currency_tracker.ui.shared.interactions.CoinListInteractions
+import org.example.currency_tracker.ui.shared.ui_state.CoinListUiState
+import org.example.currency_tracker.ui.shared.ui_state.CoinUiState
+import org.example.currency_tracker.ui.shared.ui_state.ContentStatus
+import org.example.currency_tracker.ui.shared.ui_state.toUiState
 
 class CoinListViewModel(
     private val repository: Repository,
@@ -31,7 +33,6 @@ class CoinListViewModel(
 
     private fun coinListError() {
         _state.update { it.copy(contentStatus = ContentStatus.FAILURE) }
-        sendEvent(CoinListEvents.ShowAnError)
     }
 
     override fun onClickCoin(coin: CoinUiState) {
