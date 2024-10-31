@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import org.example.currency_tracker.ui.coin_details.CoinDetailsScreen
+import org.example.currency_tracker.ui.coin_details.view_model.CoinDetailsViewModel
 import org.example.currency_tracker.ui.coin_list.CoinListScreen
 import org.example.currency_tracker.ui.coin_list.view_model.CoinListEvents
 import org.example.currency_tracker.ui.coin_list.view_model.CoinListViewModel
@@ -44,7 +46,14 @@ fun AndroidNavigation() {
                     }
                     CoinListScreen(state = state, interactions = viewModel)
                 }
-                composable<CoinDetails> { }
+                composable<CoinDetails> {
+                    val viewModel = koinViewModel<CoinDetailsViewModel>()
+                    val state by viewModel.state.collectAsStateWithLifecycle()
+                    EventHandler(viewModel.event) { event, _ ->
+
+                    }
+                    CoinDetailsScreen(state = state, interactions = viewModel)
+                }
             }
         }
     }
