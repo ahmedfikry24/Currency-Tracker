@@ -1,4 +1,4 @@
-package org.example.currency_tracker.ui.home.view_model
+package org.example.currency_tracker.ui.coin_list.view_model
 
 import kotlinx.coroutines.flow.update
 import org.example.currency_tracker.data.model.CoinDto
@@ -8,9 +8,9 @@ import org.example.currency_tracker.ui.shared_ui.CoinUiState
 import org.example.currency_tracker.ui.shared_ui.ContentStatus
 import org.example.currency_tracker.ui.shared_ui.toUiState
 
-class HomeViewModel(
+class CoinListViewModel(
     private val repository: Repository,
-) : BaseViewModel<HomeUiState, HomeEvents>(HomeUiState()), HomeInteractions {
+) : BaseViewModel<CoinListUiState, CoinListEvents>(CoinListUiState()), CoinListInteractions {
 
     override fun initData() {
         tryExecute(
@@ -31,9 +31,11 @@ class HomeViewModel(
 
     private fun coinListError() {
         _state.update { it.copy(contentStatus = ContentStatus.FAILURE) }
+        sendEvent(CoinListEvents.ShowAnError)
     }
 
     override fun onClickCoin(coin: CoinUiState) {
         _state.update { it.copy(selectedCoin = coin) }
+        sendEvent(CoinListEvents.NavigateToCoinDetails(coin.id))
     }
 }
