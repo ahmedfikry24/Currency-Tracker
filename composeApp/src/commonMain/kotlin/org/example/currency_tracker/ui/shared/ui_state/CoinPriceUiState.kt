@@ -6,8 +6,8 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 
 data class CoinPriceUiState(
-    val priceUsd: Double,
-    val time: ZonedDateTime,
+    val priceUsd: Double = 0.0,
+    val time: ZonedDateTime = ZonedDateTime.now(),
 )
 
 fun CoinPriceDto.toUiState(): CoinPriceUiState {
