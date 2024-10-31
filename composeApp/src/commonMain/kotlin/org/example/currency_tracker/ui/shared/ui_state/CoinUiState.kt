@@ -1,4 +1,4 @@
-package org.example.currency_tracker.ui.shared_ui
+package org.example.currency_tracker.ui.shared.ui_state
 
 import androidx.annotation.DrawableRes
 import currencytracker.composeapp.generated.resources.Res

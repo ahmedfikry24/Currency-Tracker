@@ -1,7 +1,6 @@
 package org.example.currency_tracker
 
-interface Platform {
-    val name: String
-}
+const val ANDROID = "Android"
+const val DESKTOP = "Desktop"
 
-expect fun getPlatform(): Platform
+expect fun getPlatformName(): String

@@ -1,5 +1,7 @@
 package org.example.currency_tracker.ui.base
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.CoroutineDispatcher
@@ -14,13 +16,13 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 
-abstract class BaseViewModel<U, E>(uiState: U) : ScreenModel {
+abstract class BaseViewModel<U, E>(uiState: U) : ViewModel() {
 
     protected val _state = MutableStateFlow(uiState)
     val state = _state
-        .onStart { initDate() }
+        .onStart { initData() }
         .stateIn(
-            scope = screenModelScope,
+            scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = uiState
         )
@@ -28,7 +30,7 @@ abstract class BaseViewModel<U, E>(uiState: U) : ScreenModel {
     private val _event = MutableSharedFlow<E>()
     val event = _event.asSharedFlow()
 
-    abstract fun initDate()
+    abstract fun initData()
 
     protected fun <T> tryExecute(
         call: suspend () -> T,
@@ -39,7 +41,7 @@ abstract class BaseViewModel<U, E>(uiState: U) : ScreenModel {
         val handler = CoroutineExceptionHandler { _, error ->
             onFailure(error as BaseError)
         }
-        screenModelScope.launch(handler + dispatcher) {
+        viewModelScope.launch(handler + dispatcher) {
             val result = call()
             onSuccess(result)
         }
@@ -47,7 +49,7 @@ abstract class BaseViewModel<U, E>(uiState: U) : ScreenModel {
 
 
     protected fun sendEvent(event: E) {
-        screenModelScope.launch {
+        viewModelScope.launch {
             _event.emit(event)
         }
     }
