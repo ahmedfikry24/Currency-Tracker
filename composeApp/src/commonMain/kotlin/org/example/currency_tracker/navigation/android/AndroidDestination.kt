@@ -1,7 +1,6 @@
-package org.example.currency_tracker.navigation
+package org.example.currency_tracker.navigation.android
 
 import kotlinx.serialization.Serializable
-
 
 @Serializable
 data object CoinList

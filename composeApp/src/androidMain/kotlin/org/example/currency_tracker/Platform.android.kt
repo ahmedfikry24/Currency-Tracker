@@ -1,3 +1,3 @@
 package org.example.currency_tracker
 
-actual fun getPlatformName() = "Android"
+actual fun getPlatformName() = ANDROID
