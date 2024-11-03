@@ -5,5 +5,5 @@ data class MainCoinUiState(
     val isCoinListVisible: Boolean = true,
     val coinList: List<CoinUiState> = listOf(),
     val selectedCoin: CoinUiState = CoinUiState(),
-    val coinHistory: List<CoinPriceUiState> = listOf(),
+    val coinHistory: List<CoinHistoryUiState> = listOf(),
 ) 
