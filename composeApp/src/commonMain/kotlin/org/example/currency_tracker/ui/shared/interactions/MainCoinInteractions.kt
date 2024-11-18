@@ -2,7 +2,8 @@ package org.example.currency_tracker.ui.shared.interactions
 
 import org.example.currency_tracker.ui.shared.ui_state.CoinUiState
 
-interface CoinListInteractions {
+interface MainCoinInteractions {
     fun initData()
-    fun onClickCoin(coin: CoinUiState)
+    fun switchScreenContent()
+    fun onCLickCoin(coin: CoinUiState)
 }

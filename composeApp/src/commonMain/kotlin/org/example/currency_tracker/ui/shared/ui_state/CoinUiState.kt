@@ -40,7 +40,7 @@ fun CoinDto.toUiState(): CoinUiState {
 }
 
 
-private fun Double.toDisplayedNumber(): DisplayedNumber {
+fun Double.toDisplayedNumber(): DisplayedNumber {
     val formatter = NumberFormat.getNumberInstance(Locale.getDefault()).apply {
         maximumFractionDigits = 2
         minimumFractionDigits = 2

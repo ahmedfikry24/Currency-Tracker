@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import org.example.currency_tracker.ui.shared.ui_state.CoinUiState
 import org.example.currency_tracker.ui.theme.spacing
@@ -51,13 +52,17 @@ fun CoinListItem(
                     text = state.symbol,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    color = textColor
+                    color = textColor,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = state.name,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Normal,
-                    color = textColor
+                    color = textColor,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
             Column(horizontalAlignment = Alignment.End) {
@@ -65,7 +70,9 @@ fun CoinListItem(
                     text = "$ ${state.priceUsd.formated}",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = textColor
+                    color = textColor,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 VerticalDivider(modifier = Modifier.height(MaterialTheme.spacing.space8))
                 PriceChangeIcon(state = state.changePercent24Hr)
