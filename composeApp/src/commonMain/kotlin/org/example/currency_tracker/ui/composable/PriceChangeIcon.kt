@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.currency_tracker.ui.shared.ui_state.DisplayedNumber
@@ -49,7 +50,9 @@ fun PriceChangeIcon(
             text = "${state.formated} %",
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
-            color = contentColor
+            color = contentColor,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
     }
 }

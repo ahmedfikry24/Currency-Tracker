@@ -16,7 +16,7 @@ fun main() = application {
     val windowState = rememberWindowState(
         width = screenSize.width.dp * .9f,
         height = screenSize.height.dp * 2 / 3,
-        position = WindowPosition(Alignment.Center),
+        position = WindowPosition(Alignment.Center)
     )
     Window(
         onCloseRequest = ::exitApplication,
