@@ -9,6 +9,7 @@ import androidx.compose.ui.window.rememberWindowState
 import currencytracker.composeapp.generated.resources.Res
 import currencytracker.composeapp.generated.resources.app_name
 import org.jetbrains.compose.resources.stringResource
+import java.awt.Dimension
 import java.awt.Toolkit
 
 fun main() = application {
@@ -23,6 +24,7 @@ fun main() = application {
         title = stringResource(Res.string.app_name),
         state = windowState,
     ) {
+        window.minimumSize = Dimension(1300, 650)
         CurrencyTrackerApp()
     }
 }
