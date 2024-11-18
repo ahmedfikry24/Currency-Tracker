@@ -1,13 +1,18 @@
 package org.example.currency_tracker.ui.shared.view_model
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.example.currency_tracker.data.model.CoinDto
 import org.example.currency_tracker.data.model.CoinPriceDto
 import org.example.currency_tracker.data.repository.Repository
-import org.example.currency_tracker.ui.base.BaseViewModel
+import org.example.currency_tracker.ui.base.BaseError
 import org.example.currency_tracker.ui.shared.interactions.MainCoinInteractions
 import org.example.currency_tracker.ui.shared.ui_state.CoinUiState
 import org.example.currency_tracker.ui.shared.ui_state.ContentStatus
@@ -17,7 +22,16 @@ import java.time.ZonedDateTime
 
 class MainCoinViewModel(
     private val repository: Repository,
-) : BaseViewModel<MainCoinUiState, MainCoinEvents>(MainCoinUiState()), MainCoinInteractions {
+) : ViewModel(), MainCoinInteractions {
+
+    private val _state = MutableStateFlow(MainCoinUiState())
+    val state = _state
+        .onStart { initData() }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = _state.value
+        )
 
     override fun initData() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -28,11 +42,13 @@ class MainCoinViewModel(
 
 
     private fun getCoinList() {
-        tryExecute(
-            { repository.getCoinList() },
-            ::coinListSuccess,
-            { coinError() }
-        )
+        try {
+            viewModelScope.launch(Dispatchers.IO) {
+                coinListSuccess(repository.getCoinList())
+            }
+        } catch (e: BaseError) {
+            coinError()
+        }
     }
 
     private fun coinListSuccess(coins: List<CoinDto>) {
@@ -51,17 +67,19 @@ class MainCoinViewModel(
     }
 
     private fun getCoinHistory(id: String) {
-        tryExecute(
-            {
-                repository.getCoinHistory(
+
+        try {
+            viewModelScope.launch(Dispatchers.IO) {
+                val result = repository.getCoinHistory(
                     id = id,
                     start = ZonedDateTime.now().minusDays(5),
                     end = ZonedDateTime.now()
                 )
-            },
-            ::coinHistorySuccess,
-            { coinError() }
-        )
+                coinHistorySuccess(result)
+            }
+        } catch (e: BaseError) {
+            coinError()
+        }
     }
 
     private fun coinHistorySuccess(history: List<CoinPriceDto>) {
@@ -80,5 +98,4 @@ class MainCoinViewModel(
     override fun switchScreenContent() {
         _state.update { it.copy(isCoinListVisible = !it.isCoinListVisible) }
     }
-
 }
