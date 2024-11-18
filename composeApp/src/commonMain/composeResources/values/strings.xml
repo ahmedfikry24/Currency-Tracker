@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<resources>
+    <string name="app_name">Currency Tracker</string>
+    <string name="something_went_wrong">Something went wrong, check internet connection then try again</string>
+    <string name="market_cap">Market Cap</string>
+    <string name="price">Price</string>
+    <string name="change_last_24h">Change last 24h</string>
+</resources>
+
